@@ -1,5 +1,12 @@
 <template>
     <div>
+        <!-- 搜索框 -->
+        <Input search 
+         placeholder="Enter something..."
+         v-model="searchValue"
+         @on-search="gridSearch"
+         style="width: 300px" />
+
         <!-- 表格 -->
         <Table border ref="selection" 
         :columns="columns" 
@@ -35,8 +42,12 @@
     export default {
         data () {
             return {
+                searchValue: null,
+                searchData: [],
+
                 showGridData: [], // 展示的数据
                 allGridData: [], // 所有数据
+                filterAfterAllData: [], // 筛选后的总数据
 
                 selectionAll:[],
                 modal1: false, // 提示框显示与隐藏控制
@@ -136,7 +147,7 @@
             // 移除数据方法
             remove (index) {
                 // this.showGridData.splice(index, 1);
-                this.allGridData.splice(this.pageSize * (this.pageNum - 1) + index,1);
+                this.filterAfterAllData.splice(this.pageSize * (this.pageNum - 1) + index,1);
                 this.pageNumChange(this.pageNum);
             },
 
@@ -144,7 +155,7 @@
             deleteOk () {
                 this.$Message.info('Clicked ok');
                 this.remove(this.removeOneIndex);
-                this.dataCount = this.allGridData.length;
+                this.dataCount = this.filterAfterAllData.length;
             },
 
             // 删除提示框选择取消后执行的方法
@@ -157,31 +168,49 @@
                 this.pageNum = pageNum;
                 let _start = ( pageNum - 1 ) * this.pageSize;
                 let _end = pageNum * this.pageSize;
-                this.showGridData = this.allGridData.slice(_start,_end);
+                this.showGridData = this.filterAfterAllData.slice(_start,_end);
             },
 
             // 每页显示总条数改变回调
             showNumChange (showNum) {
                 // console.log(showNum);
                 this.pageSize = showNum;
-                if(this.allGridData.length < this.pageSize){
-                    this.showGridData = this.allGridData;
+                if(this.filterAfterAllData.length < this.pageSize){
+                    this.showGridData = this.filterAfterAllData;
                 }else{
-                    this.showGridData = this.allGridData.slice(0,this.pageSize);
+                    this.showGridData = this.filterAfterAllData.slice(0,this.pageSize);
                 }
             },
 
              // 获取历史记录信息
-            getGridListData () {
+            getGridListData (dataChange = false) {
                 // 保存取到的所有数据
-                this.allGridData = this.$store.state.grid.gridDatas;
-                this.dataCount = this.allGridData.length;
-                // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
-                if(this.allGridData.length < this.pageSize){
-                    this.showGridData = this.allGridData;
-                }else{
-                    this.showGridData = this.allGridData.slice(0,this.pageSize);
+                if (dataChange) {
+                    this.filterAfterAllData = this.searchData;
+
+                } else {
+                    this.filterAfterAllData = this.$store.state.grid.gridDatas;
                 }
+                
+                this.dataCount = this.filterAfterAllData.length;
+                // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
+                if(this.filterAfterAllData.length < this.pageSize){
+                    this.showGridData = this.filterAfterAllData;
+                }else{
+                    this.showGridData = this.filterAfterAllData.slice(0,this.pageSize);
+                }
+            },
+
+            // 搜索方法
+            gridSearch () {
+                this.filterAfterAllData = this.$store.state.grid.gridDatas;
+                this.searchData = [];
+                this.filterAfterAllData.forEach((e, index) => {
+                    if(e.name.indexOf(this.searchValue) != -1) {
+                        this.searchData.push(e);
+                    }
+                })
+                this.getGridListData(true);
             }
         },
 
