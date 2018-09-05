@@ -1,8 +1,9 @@
 <template>
     <div>
         <!-- 搜索框 -->
+        Name
         <Input search 
-         placeholder="Enter something..."
+         placeholder="Enter name..."
          v-model="searchValue"
          @on-search="gridSearch"
          style="width: 300px" />

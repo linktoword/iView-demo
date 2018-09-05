@@ -2,7 +2,7 @@
     <div>
         <Layout class="layout">
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
+                <Menu mode="horizontal" :theme="this.$store.state.commonStore.theme" active-name="1">
                     <div class="layout-logo">LED-DEMO</div>
                     <div class="layout-nav">
                         <MenuItem name="1" to="grid">
@@ -38,10 +38,11 @@
 </script>
 <style scoped>
 .layout{
-    border: 1px solid #d7dde4;
+    /* border: 1px solid #d7dde4;
+    border-bottom: 0px; */
     background: #f5f7f9;
     position: relative;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     overflow: hidden;
 }
 .layout-logo{
