@@ -1,0 +1,77 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.map-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#map {
+    height: 100%;
+}
+#demo-detail {
+	width: 400px;
+	margin: 15px;
+	height: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	box-shadow: 0 0 5px rgba(0,0,0,0.35);
+	background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    display: none;
+}      
+.head {
+	width: 100%;
+    height: 40px;
+    display: flex;
+    /*justify-content: flex-start;*/
+    align-items: center;
+    background-color: #f2f2f2;
+    color: #333;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.head div {
+	flex: 1;
+	text-align: center;
+}
+.head i {
+	padding: 5px;
+	cursor: pointer;
+}
+table {
+	width: 100%;
+	border-spacing: 0;
+}
+
+#demo-detail td {
+	padding: 10px 5px;
+	border-bottom: dotted 1px #e4e4e4;
+}
+
+#demo-detail td:nth-child(2n+1) {
+	text-align: right;
+    border-right: dotted 1px #e4e4e4;
+    width: 100px;
+}
+.footer {
+	display: flex;
+}
+
+.footer div {
+	flex-grow: 1;
+	text-align: center;
+	padding: 10px 0;
+	cursor: pointer;
+}
+.footer .seletcd {
+	color: #3399ff;
+    background-color: #f2f2f2;
+}
