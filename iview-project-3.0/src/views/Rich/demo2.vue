@@ -2,7 +2,6 @@
     <sider-menu
     :activeName="activeName"
     :sideMenuList="sideMenuList"
-    class="slide-menu-class"
     ></sider-menu>
 </template>
 <script>
@@ -81,8 +80,6 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
-.slide-menu-class {
-    height: 889px;
-}
+<style lang="less">
+
 </style>

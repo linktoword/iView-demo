@@ -1,5 +1,5 @@
 <template>
-    <Menu :theme="this.$store.state.commonStore.theme" :active-name="activeName">
+    <Menu :theme="this.$store.state.commonStore.theme" :active-name="activeName" class="slide-menu-class">
         <MenuGroup :title="item.title" v-for="item in sideMenuList" :key="item.id">
             <MenuItem :name="childList.name" v-for="childList in item.list" :key="childList.id">
             <Icon :type="childList.iconType" /> {{ childList.text }}
@@ -28,5 +28,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+.slide-menu-class {
+    height: calc(~"100vh - 64px");
+}
 </style>
