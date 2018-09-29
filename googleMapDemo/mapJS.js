@@ -9,13 +9,14 @@
         {lat: 38.915168, lng: 117.603875}
     ]
     var clickAddMarkersArray = []; // 储存点击添加的标记
+    var centerDefalte = {lat: 39.315168, lng: 116.103875};
 
     function initMap() {
         //创建谷歌地图
         // 创建地图时你可以通过设置选项指定哪些控件集显示或者通过调用 setOptions() 来改变地图的设置选项。
         let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 9,                                    // 地图默认缩放比例
-            center: {lat: 39.315168, lng: 116.103875},  // 默认中心点
+            center: centerDefalte,  // 默认中心点
             //mapTypeId: google.maps.MapTypeId.SATELLITE,  // 指定地图展示类型：卫星图像、普通道路
             scrollwheel: true,          　　　　　　　　　 // 是否允许滚轮滑动进行缩放
             disableDefaultUI: true, // 地图默认控件的显示 设置为true 则不显示 
@@ -33,7 +34,7 @@
             let marker = new google.maps.Marker({
                 position: e,
                 //label: `${i + 1}` ,// 标记中显示的内容
-                animation:google.maps.Animation.BOUNCE,
+                animation:google.maps.Animation.DROP,
                 draggable: true, // 这里就是拖动
                 icon: "./device_tag_on.png" // 标记样式
             });
@@ -67,7 +68,7 @@
 
         // 绘制折线图形 闭合
         let myTrip = [{lat: 39.124168, lng: 118.452275},
-        {lat: 38.564168, lng: 117.60075},
+        {lat: 38.564168, lng: 119.60075},
         {lat: 38.072168, lng: 118.83675}];
         let flightPath = new google.maps.Polygon({
             path:myTrip,
@@ -109,7 +110,7 @@
             let marker = new google.maps.Marker({
                 position: location,
                 map: map,
-                animation:google.maps.Animation.BOUNCE,
+                animation:google.maps.Animation.DROP,
                 draggable: true,//这里就是拖动
                 icon: "./device_tag_on.png" // 标记样式
             });
@@ -173,7 +174,6 @@
 
     // 创建自定义的控件
     function CenterControl(controlDiv, map) {
-
         // Set CSS for the control border.
         let controlUI = document.createElement('div');
         controlUI.style.backgroundColor = '#fff';
@@ -194,15 +194,13 @@
         controlText.style.lineHeight = '38px';
         controlText.style.paddingLeft = '5px';
         controlText.style.paddingRight = '5px';
-        controlText.innerHTML = '我是自定义的控件';
+        controlText.innerHTML = '我是自定义的控件<br>点击我回到默认中心点';
         controlUI.appendChild(controlText);
 
         // Setup the click event listeners: simply set the map to Chicago.
         controlUI.addEventListener('click', function() {
-          alert("我是自定义的控件");
+          map.setCenter(centerDefalte);
         });
-
       }
-
- })   
+    })   
     

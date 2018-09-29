@@ -2,10 +2,14 @@
     @import 'styles/common.css';
 </style>
 <template>
-    <div>
-        <demo-menu></demo-menu>
-        <router-view></router-view>
-    </div>
+    <Layout>
+        <Header>
+            <demo-menu></demo-menu>
+        </Header>
+        <Layout>
+            <router-view></router-view>
+        </Layout>
+    </Layout>
 </template>
 <script>
 import Menu from './views/common/menu'
